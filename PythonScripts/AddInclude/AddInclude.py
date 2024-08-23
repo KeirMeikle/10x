@@ -44,8 +44,16 @@ def AddInclude():
     if extensionFound == False:
         return
 
+    # cache GotoFunctionImplementation and force it off temporarily
+    oldGotoFunctionImplementation = N10X.Editor.GetSetting("GotoFunctionImplementation") 
+    N10X.Editor.SetSetting("GotoFunctionImplementation", "false") 
+
     # grab the filepath for the current symbol
     path = N10X.Editor.GetSymbolDefinitionFilename(N10X.Editor.GetCursorPos())
+
+    # restore GotoFunctionImplementation to old value
+    N10X.Editor.SetSetting("GotoFunctionImplementation", oldGotoFunctionImplementation) 
+
 
     # dont bother including if the symbol
     # is defined in the current file
